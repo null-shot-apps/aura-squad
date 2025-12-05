@@ -1,84 +1,235 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const slogans = [
-  "Turn chats into apps",
-  "Prompt. Ship. Repeat.",
-  "Build anything from a chat",
-  "Ideas → Apps, instantly",
-  "From zero to MVP in minutes",
-  "Your cofounder in the command line",
-  "Draft, iterate, deploy",
-  "Ship faster than you can type",
-  "Design in text, deliver in code",
-  "Dream it. Prompt it. Run it.",
-  "Chat-native app building",
-  "From prompt to product",
-  "One prompt, infinite apps",
-  "Stop scaffolding. Start shipping.",
-  "Prototype at the speed of thought",
-  "Make conversations executable"
+// Mock data for trending squads
+const trendingSquads = [
+  {
+    id: 1,
+    title: "🚀 Startup Launch Plan",
+    creator: "Alex & 4 friends",
+    status: "Complete",
+    timeAgo: "2 hrs ago",
+    participants: 5,
+    earned: 50,
+    rating: 4.9,
+    preview: "This is genius! 🔥",
+    memes: ["Making so much $$", "Squad so good 👑"],
+    category: "business"
+  },
+  {
+    id: 2,
+    title: "💪 Summer Fit Challenge",
+    creator: "Jamie & crew",
+    status: "In Progress",
+    timeAgo: "3 days",
+    participants: 6,
+    progress: "Day 3/90",
+    latest: "Killed the gym!",
+    category: "fitness"
+  },
+  {
+    id: 3,
+    title: "🎬 Viral TikTok Content",
+    creator: "Sarah's Squad",
+    status: "Complete",
+    timeAgo: "1 day ago",
+    participants: 4,
+    earned: 35,
+    rating: 4.8,
+    preview: "2M views already! 🔥",
+    category: "content"
+  },
+  {
+    id: 4,
+    title: "🗺️ Epic Road Trip Plan",
+    creator: "Mike & friends",
+    status: "In Progress",
+    timeAgo: "45 min",
+    participants: 5,
+    progress: "80% complete",
+    latest: "Found amazing route!",
+    category: "travel"
+  }
 ];
 
-export default function Landing() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % slogans.length);
-        setIsVisible(true);
-      }, 400);
-    }, 2800);
-
-    return () => clearInterval(interval);
-  }, []);
+export default function AuraSquadHome() {
+  const [activeTab, setActiveTab] = useState('trending');
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-black text-white">
-      {/* Enhanced animated aurora background layers */}
-      <div className="absolute inset-0 bg-aurora-layer-1" />
-      <div className="absolute inset-0 bg-aurora-layer-2" />
-      <div className="absolute inset-0 bg-aurora-layer-3" />
-      
-      {/* Floating particles overlay */}
-      <div className="absolute inset-0 bg-particles" />
-      
-      {/* Main content - centered */}
-      <main className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <h1 className="text-center text-[clamp(28px,6vw,64px)] font-medium tracking-tight mb-4">
-          Turn Chats into Apps
-        </h1>
-        
-        {/* Rotating slogans */}
-        <div className="mt-4 h-8 md:h-10 overflow-hidden flex items-center justify-center">
-          <span
-            className={`inline-block text-center text-[clamp(18px,3vw,32px)] font-light transition-all duration-[400ms] ease-in-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            {slogans[currentIndex]}
-          </span>
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+      {/* Header */}
+      <header className="bg-black/20 backdrop-blur-sm border-b border-white/10">
+        <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-sm">A</span>
+            </div>
+            <h1 className="text-white font-bold text-xl">Aura Squad</h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-white/80 text-sm">
+              <span className="text-yellow-400">156</span> AURA
+            </div>
+            <div className="w-8 h-8 bg-white/20 rounded-full"></div>
+          </div>
         </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-md mx-auto">
+        {/* Action Buttons */}
+        <div className="p-4 flex gap-3">
+          <button className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-4 rounded-xl font-semibold text-sm">
+            🎉 Create Squad
+          </button>
+          <button className="flex-1 bg-white/10 backdrop-blur-sm text-white py-3 px-4 rounded-xl font-semibold text-sm border border-white/20">
+            👥 Join Squads
+          </button>
+        </div>
+
+        {/* Tabs */}
+        <div className="px-4 mb-4">
+          <div className="flex bg-white/10 backdrop-blur-sm rounded-xl p-1">
+            <button
+              onClick={() => setActiveTab('trending')}
+              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'trending'
+                  ? 'bg-white text-purple-900'
+                  : 'text-white/70'
+              }`}
+            >
+              🔥 Trending
+            </button>
+            <button
+              onClick={() => setActiveTab('friends')}
+              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'friends'
+                  ? 'bg-white text-purple-900'
+                  : 'text-white/70'
+              }`}
+            >
+              👫 Friends
+            </button>
+          </div>
+        </div>
+
+        {/* Squad Feed */}
+        <div className="px-4 space-y-4">
+          {trendingSquads.map((squad) => (
+            <div
+              key={squad.id}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20"
+            >
+              {/* Squad Header */}
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h3 className="text-white font-semibold text-lg mb-1">
+                    {squad.title}
+                  </h3>
+                  <p className="text-white/70 text-sm">by {squad.creator}</p>
+                </div>
+                <div className="text-right">
+                  <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
+                    squad.status === 'Complete'
+                      ? 'bg-green-500/20 text-green-300'
+                      : 'bg-yellow-500/20 text-yellow-300'
+                  }`}>
+                    {squad.status === 'Complete' ? '✅' : '⏳'} {squad.status}
+                  </div>
+                  <p className="text-white/50 text-xs mt-1">{squad.timeAgo}</p>
+                </div>
+              </div>
+
+              {/* Squad Stats */}
+              <div className="flex items-center gap-4 mb-3 text-sm">
+                <span className="text-white/70">
+                  👥 {squad.participants} people
+                </span>
+                {squad.earned && (
+                  <span className="text-green-400">
+                    💰 {squad.earned} AURA earned
+                  </span>
+                )}
+                {squad.rating && (
+                  <span className="text-yellow-400">
+                    ⭐ {squad.rating}/5
+                  </span>
+                )}
+                {squad.progress && (
+                  <span className="text-blue-400">
+                    📈 {squad.progress}
+                  </span>
+                )}
+              </div>
+
+              {/* Preview/Latest */}
+              {squad.preview && (
+                <div className="bg-white/5 rounded-lg p-3 mb-3">
+                  <p className="text-white/90 text-sm">{squad.preview}</p>
+                  {squad.memes && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {squad.memes.map((meme, idx) => (
+                        <span key={idx} className="text-xs text-white/60 bg-white/10 px-2 py-1 rounded">
+                          {meme}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {squad.latest && (
+                <div className="bg-white/5 rounded-lg p-3 mb-3">
+                  <p className="text-white/90 text-sm">Latest: "{squad.latest}"</p>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-2">
+                <button className="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium">
+                  {squad.status === 'Complete' ? 'View Results' : 'Join Squad'}
+                </button>
+                <button className="bg-white/10 text-white py-2 px-4 rounded-lg text-sm">
+                  👍
+                </button>
+                <button className="bg-white/10 text-white py-2 px-4 rounded-lg text-sm">
+                  💬
+                </button>
+                <button className="bg-white/10 text-white py-2 px-4 rounded-lg text-sm">
+                  📤
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Navigation */}
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-black/80 backdrop-blur-sm border-t border-white/10">
+          <div className="flex items-center justify-around py-3">
+            <button className="flex flex-col items-center gap-1 text-purple-400">
+              <span className="text-xl">🏠</span>
+              <span className="text-xs">Home</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 text-white/60">
+              <span className="text-xl">👥</span>
+              <span className="text-xs">My Squads</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 text-white/60">
+              <span className="text-xl">💰</span>
+              <span className="text-xs">Earnings</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 text-white/60">
+              <span className="text-xl">👤</span>
+              <span className="text-xs">Profile</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom padding for fixed nav */}
+        <div className="h-20"></div>
       </main>
-      
-      {/* Start Prompting arrow pointing left - bottom left */}
-      <div className="absolute left-6 md:left-8 bottom-[5%] z-20 flex items-center gap-3 arrow-point-left">
-        <div className="flex items-center gap-2 text-white/80 font-medium text-sm md:text-base">
-          <svg 
-            className="w-5 h-5 md:w-6 md:h-6 animate-bounce-horizontal" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Start prompting</span>
-        </div>
-      </div>
     </div>
   );
 }
+
