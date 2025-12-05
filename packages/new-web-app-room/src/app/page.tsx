@@ -1,60 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-
-// Mock data for trending squads
-const trendingSquads = [
-  {
-    id: 1,
-    title: "🚀 Startup Launch Plan",
-    creator: "Alex & 4 friends",
-    status: "Complete",
-    timeAgo: "2 hrs ago",
-    participants: 5,
-    earned: 50,
-    rating: 4.9,
-    preview: "This is genius! 🔥",
-    memes: ["Making so much $$", "Squad so good 👑"],
-    category: "business"
-  },
-  {
-    id: 2,
-    title: "💪 Summer Fit Challenge",
-    creator: "Jamie & crew",
-    status: "In Progress",
-    timeAgo: "3 days",
-    participants: 6,
-    progress: "Day 3/90",
-    latest: "Killed the gym!",
-    category: "fitness"
-  },
-  {
-    id: 3,
-    title: "🎬 Viral TikTok Content",
-    creator: "Sarah's Squad",
-    status: "Complete",
-    timeAgo: "1 day ago",
-    participants: 4,
-    earned: 35,
-    rating: 4.8,
-    preview: "2M views already! 🔥",
-    category: "content"
-  },
-  {
-    id: 4,
-    title: "🗺️ Epic Road Trip Plan",
-    creator: "Mike & friends",
-    status: "In Progress",
-    timeAgo: "45 min",
-    participants: 5,
-    progress: "80% complete",
-    latest: "Found amazing route!",
-    category: "travel"
-  }
-];
+import Link from 'next/link';
 
 export default function AuraSquadHome() {
-  const [activeTab, setActiveTab] = useState('trending');
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  if (showDashboard) {
+    return <Dashboard />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
@@ -232,4 +186,5 @@ export default function AuraSquadHome() {
     </div>
   );
 }
+
 
